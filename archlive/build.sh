@@ -221,6 +221,7 @@ make_prepare() {
 
 # Build ISO
 make_iso() {
+    mkdir -p "${out_dir}"
     mkarchiso ${verbose} -w "${work_dir}" -D "${install_dir}" -L "${iso_label}" -P "${iso_publisher}" -A "${iso_application}" -o "${out_dir}" iso "${iso_name}-${iso_version}-x86_64.iso"
 }
 
