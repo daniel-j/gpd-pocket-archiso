@@ -2,9 +2,9 @@
 
 set -e -u
 
-iso_name=archlinux
-iso_label="ARCH_$(date +%Y%m)"
-iso_publisher="Arch Linux <http://www.archlinux.org>"
+iso_name=archlinux-gpdpocket
+iso_label="GPD_ARCH_$(date +%Y%m)"
+iso_publisher="Arch Linux for GPD Pocket <https://github.com/daniel-j/gpd-pocket-archiso>"
 iso_application="Arch Linux Live/Rescue CD"
 iso_version=$(date +%Y.%m.%d)
 install_dir=arch
