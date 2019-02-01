@@ -1,0 +1,3 @@
+ACTION=="add|change", KERNEL=="event[0-9]*", ATTRS{name}=="Goodix Capacitive TouchScreen", ENV{LIBINPUT_CALIBRATION_MATRIX}="1 0 0 0 1 0"
+# see xorg config for rotation fix...
+# gnome rotates the touchscreen when the display is  rotated
