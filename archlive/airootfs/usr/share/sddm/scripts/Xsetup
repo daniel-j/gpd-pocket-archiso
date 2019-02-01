@@ -1,0 +1,4 @@
+#!/bin/sh
+# Xsetup - run as root before the login dialog appears
+
+XCURSOR_SIZE=48 xsetroot -cursor_name left_ptr -solid black
