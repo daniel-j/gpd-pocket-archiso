@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#USB C
+voltage() { cat /sys/class/power_supply/tcpm-source-psy-i2c-fusb302/voltage_now; }
+current() { cat /sys/class/power_supply/tcpm-source-psy-i2c-fusb302/current_max; } 
+current_limit() { cat /sys/class/power_supply/bq24190-charger/input_current_limit; }
+#battery
+voltage_actual() { cat /sys/class/power_supply/max170xx_battery/voltage_now; } 
+current_actual() { cat /sys/class/power_supply/max170xx_battery/current_now; } 
+capacity() { cat /sys/class/power_supply/max170xx_battery/capacity; }
+
+echo "USB C port:"
+echo "Voltage: $(expr `voltage` / 1000000)V DC"  
+echo "Current: $(echo 'scale=2; '$(current)'/1000000' | bc)A"
+echo "Current imput limit: $(echo 'scale=2; '$(current_limit)'/1000000' | bc)A"
+echo "---------------------------"
+echo "Battery:"
+echo "Voltage: $(echo 'scale=2; '$(voltage_actual)'/1000000' | bc)V DC"
+#echo "Current: $(echo 'scale=2; '$(current_actual)'/1000000' | bc)A"
+echo "Current: $(echo 'scale=2; '$(current_actual)'/1000000' | bc)A"
+echo "Capacity: $(capacity)%"

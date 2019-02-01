@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+
+directory = '/sys/class/power_supply/max170xx_battery/'
+
+with open(directory + 'current_avg', 'r') as f:
+    current = int(f.read()) / 1000000.0
+with open(directory + 'voltage_avg', 'r') as f:
+    voltage = int(f.read()) / 1000000.0
+energy = voltage * current
+# print('{0:.2f}V {1:.2f}A {2:.2f}W'.format(voltage, current, energy))
+print('{0:.2f}W'.format(energy))
