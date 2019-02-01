@@ -1,0 +1,1 @@
+ACTION=="add|change", SUBSYSTEM=="power_supply", KERNEL=="tcpm-source-psy-i2c-fusb302", ENV{POWER_SUPPLY_ONLINE}=="1", ENV{POWER_SUPPLY_CURRENT_NOW}!="0", RUN+="/usr/local/bin/gpd-set-input-current-limit %E{POWER_SUPPLY_CURRENT_NOW}"
