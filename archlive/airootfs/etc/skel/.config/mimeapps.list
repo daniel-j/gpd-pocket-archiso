@@ -1,0 +1,12 @@
+[Added Associations]
+x-scheme-handler/http=chromium.desktop;
+x-scheme-handler/https=chromium.desktop;
+inode/directory=nemo.desktop;
+text/plain=org.gnome.gedit.desktop;
+
+
+[Default Applications]
+x-scheme-handler/http=chromium.desktop;
+x-scheme-handler/https=chromium.desktop;
+inode/directory=nemo.desktop;
+text/plain=org.gnome.gedit.desktop;
