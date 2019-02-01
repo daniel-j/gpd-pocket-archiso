@@ -1,0 +1,10 @@
+[Mouse]
+Acceleration=3
+AccelerationProfile=Adaptive
+MouseButtonMapping=RightHanded
+ReverseScrollPolarity=false
+Threshold=2
+XLbInptAccelProfileFlat=false
+XLbInptPointerAcceleration=1
+cursorSize=48
+cursorTheme=breeze_cursors

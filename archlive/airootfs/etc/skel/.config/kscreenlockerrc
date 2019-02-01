@@ -1,0 +1,14 @@
+[Daemon]
+Autolock=false
+LockOnResume=false
+
+[Greeter]
+Theme=org.kde.breezedark.desktop
+WallpaperPlugin=org.kde.image
+
+[Greeter][Wallpaper][org.kde.color][General]
+Color=0,0,0
+
+[Greeter][Wallpaper][org.kde.image][General]
+FillMode=2
+#Image=file:///home/djazz/Pictures/wallpapers/500525.jpg

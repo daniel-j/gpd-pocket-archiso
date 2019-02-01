@@ -1,0 +1,17 @@
+[Desktop Entry]
+DefaultProfile=Shell.profile
+
+[KonsoleWindow]
+ShowMenuBarByDefault=false
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled
+Window-Maximized 667x1067=true
+Width 1067=960
+Height 667=480
+
+[TabBar]
+ExpandTabWidth=true
+TabBarPosition=Top
+TabBarVisibility=ShowTabBarWhenNeeded
