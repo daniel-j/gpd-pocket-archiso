@@ -1,0 +1,20 @@
+{
+  "browser": {
+    "custom_chrome_frame": true,
+    "window_placement": {
+      "bottom": 0,
+      "left": 0,
+      "maximized": true,
+      "right": 0,
+      "top": 0
+    }
+  },
+  "download": {
+    "prompt_for_download": true
+  },
+  "extensions": {
+    "theme": {
+      "use_system": true
+    }
+  }
+}
