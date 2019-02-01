@@ -1,0 +1,11 @@
+[org/nemo/desktop]
+show-desktop-icons=false
+
+[org/nemo/window-state]
+maximized=true
+
+[org/cinnamon/desktop/applications/terminal]
+exec='konsole'
+
+[org/cinnamon/desktop/default-applications/terminal]
+exec='konsole'
