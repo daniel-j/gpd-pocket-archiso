@@ -66,7 +66,28 @@ make_basefs() {
 
 # Additional packages (airootfs)
 make_packages() {
-    mkarchiso ${verbose} -w "${work_dir}/x86_64" -C "${work_dir}/pacman.conf" -D "${install_dir}" -p "$(grep -h -v ^# ${script_path}/packages.x86_64)" install
+    aur_packages=(tbsm yay)
+    aur_packages_files=()
+    aur="https://aur.archlinux.org/cgit/aur.git/snapshot/"
+    for pkg in $(echo ${aur_packages[@]}); do
+        if [ ! -f "packages/$pkg/.finished" ]; then
+            sudo -u $SUDO_USER mkdir -p packages
+            wget -qO- "$aur/${pkg}.tar.gz" | sudo -u $SUDO_USER tar xz -C packages
+            cd "packages/$pkg" || exit 1
+            sudo -u $SUDO_USER makepkg -scf --noconfirm || exit 1
+            sudo -u $SUDO_USER touch .finished
+            cd ../..
+        fi
+        aur_packages_files+=("$(echo packages/$pkg/$pkg-*.pkg.tar.xz)")
+    done
+
+    mkarchiso ${verbose} -w "${work_dir}/x86_64" -C "${work_dir}/pacman.conf" -D "${install_dir}" -p "--needed $(grep -h -v ^# ${script_path}/packages.x86_64)" install
+
+    if [ ${#aur_packages_files[@]} -ne 0 ]; then
+        pacman --root "${work_dir}/x86_64/airootfs" --cachedir "${work_dir}/x86_64/airootfs/var/cache/pacman/pkg" --config "${work_dir}/pacman.conf" --noconfirm -U ${aur_packages_files[@]}
+    fi
+
+    pacman --root "${work_dir}/x86_64/airootfs" --cachedir "${work_dir}/x86_64/airootfs/var/cache/pacman/pkg" --config "${work_dir}/pacman.conf" --noconfirm -Rns oxygen discover
 }
 
 # Copy mkinitcpio archiso hooks and build initramfs (airootfs)
@@ -78,6 +99,7 @@ make_setup_mkinitcpio() {
         cp /usr/lib/initcpio/hooks/${_hook} ${work_dir}/x86_64/airootfs/etc/initcpio/hooks
         cp /usr/lib/initcpio/install/${_hook} ${work_dir}/x86_64/airootfs/etc/initcpio/install
     done
+    sed -i 's/cow_spacesize="256M"/cow_spacesize="2G"/' ${work_dir}/x86_64/airootfs/etc/initcpio/hooks/archiso
     sed -i "s|/usr/lib/initcpio/|/etc/initcpio/|g" ${work_dir}/x86_64/airootfs/etc/initcpio/install/archiso_shutdown
     cp /usr/lib/initcpio/install/archiso_kms ${work_dir}/x86_64/airootfs/etc/initcpio/install
     cp /usr/lib/initcpio/archiso_shutdown ${work_dir}/x86_64/airootfs/etc/initcpio
@@ -95,11 +117,11 @@ make_setup_mkinitcpio() {
 
 # Customize installation (airootfs)
 make_customize_airootfs() {
-    cp -af ${script_path}/airootfs ${work_dir}/x86_64
+    rsync -rlptgoDh --chown=root:root ${script_path}/airootfs ${work_dir}/x86_64
 
     cp ${script_path}/pacman.conf ${work_dir}/x86_64/airootfs/etc
 
-    curl -o ${work_dir}/x86_64/airootfs/etc/pacman.d/mirrorlist 'https://www.archlinux.org/mirrorlist/?country=all&protocol=http&use_mirror_status=on'
+    curl -o ${work_dir}/x86_64/airootfs/etc/pacman.d/mirrorlist 'https://www.archlinux.org/mirrorlist/?country=all&protocol=http&protocol=https&use_mirror_status=on'
 
     lynx -dump -nolist 'https://wiki.archlinux.org/index.php/Installation_Guide?action=render' >> ${work_dir}/x86_64/airootfs/root/install.txt
 
@@ -252,8 +274,8 @@ mkdir -p ${work_dir}
 run_once make_pacman_conf
 run_once make_basefs
 run_once make_packages
-run_once make_setup_mkinitcpio
 run_once make_customize_airootfs
+run_once make_setup_mkinitcpio
 run_once make_boot
 run_once make_boot_extra
 run_once make_syslinux

@@ -1,3 +1,4 @@
+# Arch Linux iso base
 arch-install-scripts
 b43-fwcutter
 broadcom-wl
@@ -21,15 +22,12 @@ gnu-netcat
 gpm
 gptfdisk
 grml-zsh-config
-grub
 hdparm
 ipw2100-fw
 ipw2200-fw
-irssi
 lftp
 linux-atm
 lsscsi
-mc
 mtools
 ndisc6
 nfs-utils
@@ -63,3 +61,70 @@ wireless_tools
 wpa_actiond
 wvdial
 xl2tpd
+
+# djazz's base
+tlp
+thermald
+networkmanager
+alsa-utils
+pulseaudio-alsa
+pulseaudio-bluetooth
+libva-intel-driver
+libvdpau-va-gl
+binutils
+fakeroot
+lvm2
+udisks2
+
+# graphical/desktop
+xorg-server
+xorg-xrandr
+xorg-xinput
+xf86-video-intel
+xf86-video-vesa
+xf86-video-fbdev
+xf86-input-libinput
+ttf-dejavu
+xdg-user-dirs
+
+# SDDM & Plasma
+sddm
+plasma
+# plasma5-applets-thermal-monitor
+plasma5-applets-redshift-control
+qt5ct
+konsole
+spectacle
+
+# Other applications
+gparted
+nemo
+nemo-fileroller
+gnome-disk-utility
+eog
+evince
+gedit
+gnome-calculator
+chromium
+firefox
+pavucontrol
+mpv
+gimp
+steam
+steam-native-runtime
+
+# Misc.
+curl
+git
+htop
+nload
+ncdu
+tmux
+vim
+neovim
+mc
+ranger
+calcurse
+cmus
+mpd
+powertop
