@@ -1,0 +1,16 @@
+"Registry"
+{
+	"HKCU"
+	{
+		"Software"
+		{
+			"Valve"
+			{
+				"Steam"
+				{
+					"DPIScaling"		"1"
+				}
+			}
+		}
+	}
+}
