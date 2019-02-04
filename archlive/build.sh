@@ -17,7 +17,7 @@ script_path=$(readlink -f ${0%/*})
 
 umask 0022
 
-_usage () {
+_usage() {
     echo "usage ${0} [options]"
     echo
     echo " General options:"
@@ -60,12 +60,12 @@ make_pacman_conf() {
 # Base installation, plus needed packages (airootfs)
 make_basefs() {
     mkarchiso ${verbose} -w "${work_dir}/x86_64" -C "${work_dir}/pacman.conf" -D "${install_dir}" init
-    mkarchiso ${verbose} -w "${work_dir}/x86_64" -C "${work_dir}/pacman.conf" -D "${install_dir}" -p "haveged intel-ucode amd-ucode memtest86+ mkinitcpio-nfs-utils nbd zsh efitools" install
+    pacstrap -C "${work_dir}/pacman.conf" -c -G -M "${work_dir}/x86_64/airootfs" --needed haveged intel-ucode amd-ucode memtest86+ mkinitcpio-nfs-utils nbd zsh efitools
 }
 
 # Additional packages (airootfs)
 make_packages() {
-    aur_packages=(tbsm yay)
+    aur_packages=(yay tbsm)
     aur_packages_files=()
     aur="https://aur.archlinux.org/cgit/aur.git/snapshot/"
     for pkg in $(echo ${aur_packages[@]}); do
@@ -80,13 +80,13 @@ make_packages() {
         aur_packages_files+=("$(echo packages/$pkg/$pkg-*.pkg.tar.xz)")
     done
 
-    mkarchiso ${verbose} -w "${work_dir}/x86_64" -C "${work_dir}/pacman.conf" -D "${install_dir}" -p "--needed $(grep -h -v ^# ${script_path}/packages.x86_64)" install
+    pacstrap -C "${work_dir}/pacman.conf" -c -G -M "${work_dir}/x86_64/airootfs" --needed $(grep -h -v ^# "${script_path}/packages.x86_64")
 
     if [ ${#aur_packages_files[@]} -ne 0 ]; then
-        pacman --root "${work_dir}/x86_64/airootfs" --cachedir "${work_dir}/x86_64/airootfs/var/cache/pacman/pkg" --config "${work_dir}/pacman.conf" --noconfirm -U ${aur_packages_files[@]}
+        pacman --root "${work_dir}/x86_64/airootfs" --config "${work_dir}/pacman.conf" --noconfirm -U ${aur_packages_files[@]}
     fi
 
-    pacman --root "${work_dir}/x86_64/airootfs" --cachedir "${work_dir}/x86_64/airootfs/var/cache/pacman/pkg" --config "${work_dir}/pacman.conf" --noconfirm -Rns oxygen discover
+    pacman --root "${work_dir}/x86_64/airootfs" --config "${work_dir}/pacman.conf" --noconfirm -Rns oxygen discover
 }
 
 # Copy mkinitcpio archiso hooks and build initramfs (airootfs)
@@ -108,7 +108,7 @@ make_setup_mkinitcpio() {
       gpg --export ${gpg_key} >${work_dir}/gpgkey
       exec 17<>${work_dir}/gpgkey
     fi
-    ARCHISO_GNUPG_FD=${gpg_key:+17} mkarchiso ${verbose} -w "${work_dir}/x86_64" -C "${work_dir}/pacman.conf" -D "${install_dir}" -r 'mkinitcpio -c /etc/mkinitcpio-archiso.conf -k /boot/vmlinuz-linux -g /boot/archiso.img' run
+    ARCHISO_GNUPG_FD=${gpg_key:+17} arch-chroot "${work_dir}/x86_64/airootfs" mkinitcpio -c /etc/mkinitcpio-archiso.conf -k /boot/vmlinuz-linux -g /boot/archiso.img
     if [[ ${gpg_key} ]]; then
       exec 17<&-
     fi
@@ -124,7 +124,7 @@ make_customize_airootfs() {
 
     lynx -dump -nolist 'https://wiki.archlinux.org/index.php/Installation_Guide?action=render' >> ${work_dir}/x86_64/airootfs/root/install.txt
 
-    mkarchiso ${verbose} -w "${work_dir}/x86_64" -C "${work_dir}/pacman.conf" -D "${install_dir}" -r '/root/customize_airootfs.sh' run
+    arch-chroot "${work_dir}/x86_64/airootfs" /root/customize_airootfs.sh
     rm ${work_dir}/x86_64/airootfs/root/customize_airootfs.sh
 }
 
