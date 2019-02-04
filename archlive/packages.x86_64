@@ -90,10 +90,11 @@ xdg-user-dirs
 # SDDM & Plasma
 sddm
 plasma
-# plasma5-applets-thermal-monitor
 plasma5-applets-redshift-control
 qt5ct
 konsole
+kwrite
+kcalc
 spectacle
 
 # Other applications
@@ -103,15 +104,13 @@ nemo-fileroller
 gnome-disk-utility
 eog
 evince
-gedit
-gnome-calculator
 chromium
 firefox
 pavucontrol
 mpv
-gimp
 steam
 steam-native-runtime
+scrot
 
 # Misc.
 curl
@@ -120,11 +119,9 @@ htop
 nload
 ncdu
 tmux
-vim
-neovim
 mc
 ranger
 calcurse
-cmus
-mpd
 powertop
+screenfetch
+neofetch
