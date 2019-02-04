@@ -16,5 +16,10 @@
     "theme": {
       "use_system": true
     }
+  },
+  "partition": {
+    "default_zoom_level": {
+      "x": -0.5778829311823857
+    }
   }
 }
