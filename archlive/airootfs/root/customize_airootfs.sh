@@ -31,3 +31,5 @@ sed -i 's/#\(HandleLidSwitch=\)suspend/\1ignore/' /etc/systemd/logind.conf
 
 systemctl enable pacman-init.service choose-mirror.service tlp.service bluetooth.service NetworkManager.service sddm.service thermald.service
 systemctl set-default graphical.target
+
+appstreamcli refresh-cache --force --verbose
