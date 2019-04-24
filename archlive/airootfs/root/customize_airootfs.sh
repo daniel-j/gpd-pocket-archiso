@@ -31,5 +31,7 @@ sed -i 's/#\(HandleLidSwitch=\)suspend/\1ignore/' /etc/systemd/logind.conf
 
 systemctl enable pacman-init.service choose-mirror.service tlp.service bluetooth.service NetworkManager.service sddm.service thermald.service
 systemctl set-default graphical.target
+#systemctl set-default multi-user.target
+systemctl enable vboxservice.service
 
 appstreamcli refresh-cache --force --verbose

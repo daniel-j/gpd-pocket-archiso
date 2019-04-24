@@ -25,6 +25,7 @@ grml-zsh-config
 hdparm
 ipw2100-fw
 ipw2200-fw
+iwd
 lftp
 linux-atm
 lsscsi
@@ -58,13 +59,11 @@ vpnc
 wget
 wireless-regdb
 wireless_tools
-wpa_actiond
 wvdial
 xl2tpd
 
 # djazz's base
 tlp
-thermald
 networkmanager
 alsa-utils
 pulseaudio-alsa
@@ -75,6 +74,10 @@ binutils
 fakeroot
 lvm2
 udisks2
+terminus-font
+
+# needed for installer
+python-pythondialog
 
 # graphical/desktop
 xorg-server
@@ -86,6 +89,8 @@ xf86-video-fbdev
 xf86-input-libinput
 ttf-dejavu
 xdg-user-dirs
+virtualbox-guest-modules-arch
+virtualbox-guest-utils
 
 # SDDM & Plasma
 sddm

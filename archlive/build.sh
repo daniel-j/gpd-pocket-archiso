@@ -65,7 +65,7 @@ make_basefs() {
 
 # Additional packages (airootfs)
 make_packages() {
-    aur_packages=(yay tbsm)
+    aur_packages=(yay tbsm thermald)
     aur_packages_files=()
     aur="https://aur.archlinux.org/cgit/aur.git/snapshot/"
     for pkg in $(echo ${aur_packages[@]}); do
