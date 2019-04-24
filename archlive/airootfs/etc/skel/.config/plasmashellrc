@@ -1,6 +1,12 @@
 [PlasmaViews][Panel 2][Horizontal1920]
 thickness=74
 
+[PlasmaViews][Panel 2][Horizontal800]
+thickness=40
+
+[PlasmaViews][Panel 2][Horizontal1440]
+thickness=40
+
 [ScreenConnectors]
 0=DSI1
 
